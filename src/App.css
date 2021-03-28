@@ -1,0 +1,70 @@
+@import '~antd/dist/antd.css';
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: left;
+}
+
+
+.width_40 {
+  min-width: 600px;
+  /* width: 40%; */
+  /* margin: auto; */
+}
+
+.list p{
+  padding: 10px;
+  position: relative;
+  transition: ease-in-out;
+}
+.list p input{
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  /* color: #fff; */
+  font-size: 18px;
+}
+.list p input:focus{
+  outline: none;
+}
+
+.deleteButton:hover {
+  color: rgb(212, 31, 31);
+}
+
+.done {
+  color: seagreen;
+  font-size: 18px;
+}
+
+.lineThrough {
+  text-decoration: line-through;
+}
+
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@media only screen and (min-width: 800px) {
+  .width_40 {
+  /* min-width: 400px; */
+  width: 40%;
+  margin: auto;
+}
+}
