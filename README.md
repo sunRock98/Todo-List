@@ -4,7 +4,7 @@
 +Ant-design \
 +Localstorage \
 +Tests \
-+bootstrapped with [Create React App](https://github.com/facebook/create-react-app). \
++bootstrapped with [Create React App](https://github.com/facebook/create-react-app). 
 
 ## Available Scripts
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, getAllByRole, getByDisplayValue, getByTestId, getByText, queryByLabelText, render } from "@testing-library/react";
 import { ToDoList } from "./ToDoList";
 import { todoEntityFabric } from "../app/TodoEntity";
 
@@ -69,5 +69,67 @@ describe("<ToDoList />", () => {
 
     fireEvent.click(getByLabelText("delete"));
     expect(queryByDisplayValue("foo")).toBeNull();
+  });
+
+  it("should make todo item editable", () => {
+    localStorage.setItem(
+      "myToDos",
+      JSON.stringify([todoEntityFabric("1", "foo")])
+    );
+
+    const { queryByDisplayValue, getByLabelText } = render(<ToDoList />);
+
+    fireEvent.click(getByLabelText("edit"));
+    expect(queryByDisplayValue("foo")).not.toHaveAttribute('disabled');
+  });
+
+  it("should make todo item uneditable on blur", () => {
+    localStorage.setItem(
+      "myToDos",
+      JSON.stringify([todoEntityFabric("1", "foo"),todoEntityFabric("2", "bar")])
+    );
+
+    const { queryByDisplayValue, getAllByLabelText, getByDisplayValue } = render(<ToDoList />);
+
+    fireEvent.click(getAllByLabelText("edit")[0]);
+    expect(queryByDisplayValue("foo")).not.toHaveAttribute('disabled');
+    fireEvent.focusOut(getByDisplayValue("foo"));
+    expect(queryByDisplayValue("foo")).toHaveAttribute('disabled');
+
+  });
+
+  it("should update todo item to be 'done'", () => {
+    localStorage.setItem(
+      "myToDos",
+      JSON.stringify([todoEntityFabric("1", "foo")])
+    );
+
+    const { queryByDisplayValue, getByLabelText, queryByLabelText } = render(<ToDoList />);
+
+    fireEvent.click(getByLabelText("border"));
+    expect(queryByDisplayValue("foo")).toHaveAttribute('class', 'lineThrough');
+    expect(queryByLabelText("border")).toBeNull();
+    fireEvent.click(getByLabelText("check"));
+    expect(queryByDisplayValue("foo")).not.toHaveAttribute('class', 'lineThrough');
+    expect(queryByLabelText("check")).toBeNull();
+
+
+  });
+
+  it("should update todo item to be 'undone'", () => {
+    localStorage.setItem(
+      "myToDos",
+      JSON.stringify([todoEntityFabric("1", "foo", true)])
+    );
+
+    const { queryByDisplayValue, getByLabelText, queryByLabelText } = render(<ToDoList />);
+
+    
+    expect(queryByLabelText("border")).toBeNull();
+    fireEvent.click(getByLabelText("check"));
+    expect(queryByDisplayValue("foo")).not.toHaveAttribute('class', 'lineThrough');
+    expect(queryByLabelText("check")).toBeNull();
+
+
   });
 });
