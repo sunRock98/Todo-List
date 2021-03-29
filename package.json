@@ -7,7 +7,6 @@
     "@ant-design/icons": "^4.6.2",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/react-hooks": "^5.1.0",
     "@testing-library/user-event": "^12.8.3",
     "@types/jest": "^26.0.22",
     "@types/node": "^12.20.7",
@@ -48,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^5.1.0",
     "react-test-renderer": "^16.14.0"
   }
 }

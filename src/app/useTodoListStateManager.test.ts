@@ -71,6 +71,32 @@ describe("useTodoList", () => {
     ]);
   });
 
+  it("should return prev state when updating todo item which is not in state", () => {
+    const { result } = renderHook(() => useTodoList());
+
+    act(() => {
+      result.current.populateList([
+        todoEntityFabric(2, "bar"),
+        todoEntityFabric(1, "foo"),
+      ]);
+      result.current.updateTodoItem(todoEntityFabric(3, "baz"));
+    });
+
+    expect(result.current.state).toEqual([
+      expect.objectContaining({
+        key: 2,
+        todo: "bar",
+        done: false,
+      }),
+      expect.objectContaining({
+        key: 1,
+        todo: "foo",
+        done: false,
+      }),
+      
+    ]);
+  });
+
   it("should remove todo item", () => {
     const { result } = renderHook(() => useTodoList());
     act(() => {
